@@ -2,16 +2,35 @@
   margin: 0;
   padding: 0;
 }
-#hangman, #guessbox{
-  height: 300px;
-  width: 200px;
+#wrapper{
+  margin: 0 auto;
+  width: 650px;
+}
+#hangman{
+  height: 350px;
+  width: 300px;
   display: inline-block;
   border: 1px solid black;
+  vertical-align: top;
 }
-.letter li{
+#guessBox{
+  height: 350px;
+  width: 215px;
+  display: inline-block;
+  border: 1px solid green;
+  vertical-align: top;
+}
+ul{
+  list-style-type: none;
+  float: left;
+  width: 100%;
+}
+.letter{
   display: inline-block;
   height:40px;
   width: 40px;
+  list-style-type: none;
+  margin: 5px;
 }
 .letterPic{
   width: 40px;

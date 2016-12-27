@@ -7,11 +7,19 @@ $(document).ready(function(){
     var randNum = Math.floor(Math.random()*wordList.length);
     randWord = wordList[randNum];
   }
-  
+  wordSelect(wordList);
+  console.log(randWord);
 
   //a reset function to present all letters as unclicked and select a random word to display blanks for
+  function reset(){
+    //this loop draws all the letters and sets the class to unclicked so they will display and behave like available letters
+    for(var i = 1; i<=26; i++){
+      $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' class="letterPic unclicked">`);
+    }
 
-  for(var i = 1; i<=26; i++){
-    $(`${i}`).append(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' class="letterPic">`);
+    wordSelect(wordList); //sets the random word
+
+    
   }
+
 });
