@@ -3,6 +3,7 @@ $(document).ready(function(){
   var randWord = ""; //variable to store random word
   var letterCorrect = 0; //a variable to track when the user gets all letters
   var winCount = 0;//a variable to store the value for the total letters that must be guessed
+  var letterDataArr = [];//an array to hold the letter data for the random word
   //a function to select a random word from the array
   function wordSelect(wordList){
     var randNum = Math.floor(Math.random()*wordList.length);
@@ -50,7 +51,7 @@ $(document).ready(function(){
   function reset(){
     //this loop draws all the letters and sets the class to unclicked so they will display and behave like available letters
     for(var i = 1; i<=26; i++){
-      $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' data-picNum="${i}" class="letterPic unclicked">`);
+      $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' data-picnum="${i}" class="letterPic unclicked">`);
     }
     wordSelect(wordList); //sets the random word
     //a for loop that writes empty divs to the blanks div to hold letters
@@ -59,8 +60,9 @@ $(document).ready(function(){
       var lData = assignLetter(randWord[j]);
       console.log(lData);
       if(lData !== 0){
-        blankAppend += `<div class = "blank letter" data-letter='${lData}'></div>`;
+        blankAppend += `<div class = "blank letter" data-letter${lData} = 0'></div>`;
         winCount++;
+        letterDataArr.push(lData);
       }else blankAppend += `<div class = "letter"><img src="img/0.png" alt="blank space" class="letterPic"></div>`;
     }
     $('#blanks').html(blankAppend);
@@ -88,8 +90,32 @@ $(document).ready(function(){
   // --- 2. check the blank spaces to see if the letter is included
   // --- 3. if the letter is in the blanks, add the image to that blank. if not then increment hangcount and update hangman
   // --- 4. when the last letter is replaced or the last hangman is set, display a new game button
-  $('.letterPic').on('click', function(){
-    var dataNum = $(this).data('picNum');
+  $('.unclicked').on('click', function(){
+    var dataNum = $(this).data('picnum');//sets a variable for the guessed letter value
+    var correctGuess = 0;//checks each guess in a loop to see if it was right
+    console.log(dataNum);
+    //loop through letterDataArr to increment win counter
+    for(var ii = 0; ii<letterDataArr.length; ii++){
+      if(letterDataArr[ii] == dataNum){
+        letterCorrect++;
+        correctGuess++;
+      }
+    }
+    console.log(letterCorrect);
+    if(correctGuess > 0){
+      $(`*[data-letter="${dataNum}"]`).html(`<img src='img/${dataNum}.png' alt='letter ${dataNum} of the alphabet' data-picnum="${dataNum}" class="letterPic unclicked">`);
+      if(letterCorrect == winCount){
+        winner();
+      }
+    }
+    //statement if wrong guess
+    else{
+      hangCount++;
+      $(this).html(`<img src='img/${dataNum}.png' alt='letter ${dataNum} of the alphabet' data-picnum="${dataNum}" class="letterPic clicked">`);
+      if(hangCount == 6){
+        loser();
+      }
+    }
   });
 
 });
