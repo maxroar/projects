@@ -4,7 +4,7 @@
 }
 #wrapper{
   margin: 0 auto;
-  width: 650px;
+  width: 530px;
 }
 #hangman{
   height: 350px;
@@ -22,17 +22,24 @@
 }
 ul{
   list-style-type: none;
-  float: left;
   width: 100%;
 }
 .letter{
   display: inline-block;
   height:40px;
   width: 40px;
-  list-style-type: none;
   margin: 5px;
 }
 .letterPic{
   width: 40px;
   height: 40px;
+}
+#blanks{
+  width: 500px;
+  height: 150px;
+  margin: 0 auto;
+  border: 1px solid purple;
+}
+.blank{
+  border-bottom: 2px solid black;
 }
