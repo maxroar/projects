@@ -43,3 +43,6 @@ ul{
 .blank{
   border-bottom: 2px solid black;
 }
+h1{
+  text-align: center;
+}

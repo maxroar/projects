@@ -1,7 +1,8 @@
 $(document).ready(function(){
   var wordList = ['apple', 'sasquatch', 'fart', 'a lot']; //array to hold random words
-
   var randWord = ""; //variable to store random word
+  var letterCorrect = 0; //a variable to track when the user gets all letters
+  var winCount = 0;//a variable to store the value for the total letters that must be guessed
   //a function to select a random word from the array
   function wordSelect(wordList){
     var randNum = Math.floor(Math.random()*wordList.length);
@@ -40,15 +41,18 @@ $(document).ready(function(){
       default: return 0;
     }
   }
+  var hangCount = 0; //a variable to hold the hangman counter
+  //a function to draw/redraw the hangman when a letter is missed or the board is reset
+  function drawHangman(){
+    $('#hangman').html(`<img src='img/hang${hangCount}.png' alt='hangman'>`);
+  }
   //a reset function to present all letters as unclicked and select a random word to display blanks for
   function reset(){
     //this loop draws all the letters and sets the class to unclicked so they will display and behave like available letters
     for(var i = 1; i<=26; i++){
-      $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' class="letterPic unclicked">`);
+      $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' data-picNum="${i}" class="letterPic unclicked">`);
     }
-
     wordSelect(wordList); //sets the random word
-
     //a for loop that writes empty divs to the blanks div to hold letters
     var blankAppend = ``;
     for(var j=0; j<randWord.length; j++){
@@ -56,14 +60,36 @@ $(document).ready(function(){
       console.log(lData);
       if(lData !== 0){
         blankAppend += `<div class = "blank letter" data-letter='${lData}'></div>`;
+        winCount++;
       }else blankAppend += `<div class = "letter"><img src="img/0.png" alt="blank space" class="letterPic"></div>`;
     }
     $('#blanks').html(blankAppend);
-    console.log(randWord);
+    hangCount = 0;
+    drawHangman();
   }
 
+  reset();//sets the inital game
 
+  //a function for if the user wins
+  function winner(){
+    $('#guessBox').html(`<h1>W</h1><h1>I</h1><h1>N</h1><h1>N</h1><h1>E</h1><h1>R</h1>`);
+    $('#blanks').html(`<button type="button" id="newGame">New Game!</button>`);
+    $('#newGame').on('click', reset());
+  }
+  //a function for the losers
+  function loser(){
+    $('#guessBox').html(`<h1>Y</h1><h1>O</h1><h1>U</h1><h1> </h1><h1>L</h1><h1>O</h1><h1>S</h1><h1>T</h1>`);
+    $('#blanks').html(`<button type="button" id="newGame">New Game!</button>`);
+    $('#newGame').on('click', reset());
+  }
 
-  reset();
+  //onclick function for letter guessing
+  // --- 1. change the state of the letter so it cannot be clicked again
+  // --- 2. check the blank spaces to see if the letter is included
+  // --- 3. if the letter is in the blanks, add the image to that blank. if not then increment hangcount and update hangman
+  // --- 4. when the last letter is replaced or the last hangman is set, display a new game button
+  $('.letterPic').on('click', function(){
+    var dataNum = $(this).data('picNum');
+  });
 
 });
