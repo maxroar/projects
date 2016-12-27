@@ -8,8 +8,12 @@
   display: inline-block;
   border: 1px solid black;
 }
-.letter{
+.letter li{
   display: inline-block;
   height:40px;
   width: 40px;
+}
+.letterPic{
+  width: 40px;
+  height: 40px;
 }
