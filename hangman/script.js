@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var wordList = ['apple', 'sasquatch', 'trailer park', 'mustard tiger', 'cheeseburger', 'walrus']; //array to hold random words
+  var wordList = ['apple', 'sasquatch', 'trailer park', 'mustard tiger', 'hamburger', 'walrus']; //array to hold random words
   var randWord = ""; //variable to store random word
   var letterCorrect = 0; //a variable to track when the user gets all letters
   var winCount = 0;//a variable to store the value for the total letters that must be guessed
@@ -65,7 +65,7 @@ $(document).ready(function(){
         blankAppend += `<div class = "blank letter blank${lData}"></div>`;
         winCount++;
         letterDataArr.push(lData);
-      }else blankAppend += `<div class = "letter"><img src="img/0.png" alt="blank space" class="letterPic"></div>`;
+      }else blankAppend += `<div  id="blankSpace"></div>`;
     }
     $('#blanks').html(blankAppend);
     hangCount = 0;

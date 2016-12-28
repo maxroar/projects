@@ -58,3 +58,13 @@ h1{
 .clicked{
   background-image: url('img/x.png');
 }
+button{
+  height: 30px;
+  width: 200px;
+  text-align: center;
+  font-size: 20px;
+}
+#blankSpace{
+  display: block;
+  height: 5px;
+}
