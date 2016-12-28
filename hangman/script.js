@@ -49,6 +49,8 @@ $(document).ready(function(){
   }
   //a reset function to present all letters as unclicked and select a random word to display blanks for
   function reset(){
+    $('#newGame').hide();//hides the new game button
+    $('#endText').html('');//clears end game text
     //this loop draws all the letters and sets the class to unclicked so they will display and behave like available letters
     for(var i = 1; i<=26; i++){
       $(`#${i}`).html(`<img src='img/${i}.png' alt='letter ${i} of the alphabet' data-picnum="${i}" class="letterPic unclicked">`);
@@ -71,18 +73,18 @@ $(document).ready(function(){
   }
 
   reset();//sets the inital game
-
+  $('#newGame').on('click', function(){
+    reset();
+  });//lets the user start a new game after a win or loss
   //a function for if the user wins
   function winner(){
-    $('#guessBox').html(`<h1>W</h1><h1>I</h1><h1>N</h1><h1>N</h1><h1>E</h1><h1>R</h1>`);
-    $('#blanks').html(`<button type="button" id="newGame">New Game!</button>`);
-    $('#newGame').on('click', reset());
+    $('#endText').html(`<h1>W</h1><h1>I</h1><h1>N</h1><h1>N</h1><h1>E</h1><h1>R</h1>`);
+    $('#newGame').show();
   }
   //a function for the losers
   function loser(){
-    $('#guessBox').html(`<h1>Y</h1><h1>O</h1><h1>U</h1><h1> </h1><h1>L</h1><h1>O</h1><h1>S</h1><h1>T</h1>`);
-    $('#blanks').html(`<button type="button" id="newGame">New Game!</button>`);
-    $('#newGame').on('click', reset());
+    $('#endText').html(`<h1>Y</h1><h1>O</h1><h1>U</h1><h1>&nbsp;</h1><h1>L</h1><h1>O</h1><h1>S</h1><h1>T</h1>`);
+    $('#newGame').show();
   }
 
   //onclick function for letter guessing
@@ -111,7 +113,8 @@ $(document).ready(function(){
     //statement if wrong guess
     else{
       hangCount++;
-      $(this).html(`<img src='img/${dataNum}.png' alt='letter ${dataNum} of the alphabet' data-picnum="${dataNum}" class="letterPic clicked">`);
+      drawHangman();
+      $(`#${dataNum}`).html(`<img src='img/x.png' class="letterPic" alt="wrong">`);
       if(hangCount == 6){
         loser();
       }
