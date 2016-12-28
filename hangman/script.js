@@ -62,7 +62,7 @@ $(document).ready(function(){
       var lData = assignLetter(randWord[j]);
       console.log(lData);
       if(lData !== 0){
-        blankAppend += `<div class = "blank letter" data-letter${lData} = 0'></div>`;
+        blankAppend += `<div class = "blank letter blank${lData}"></div>`;
         winCount++;
         letterDataArr.push(lData);
       }else blankAppend += `<div class = "letter"><img src="img/0.png" alt="blank space" class="letterPic"></div>`;
@@ -105,7 +105,8 @@ $(document).ready(function(){
     }
     console.log(letterCorrect);
     if(correctGuess > 0){
-      $(`*[data-letter="${dataNum}"]`).html(`<img src='img/${dataNum}.png' alt='letter ${dataNum} of the alphabet' data-picnum="${dataNum}" class="letterPic unclicked">`);
+      $(`.blank${dataNum}`).html(`<img src='img/${dataNum}.png' alt='letter ${dataNum} of the alphabet' class="letterPic unclicked">`);
+      $(`#${dataNum}`).html(`<img src='img/correct.png' class="letterPic" alt="correct">`)
       if(letterCorrect == winCount){
         winner();
       }
