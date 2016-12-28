@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var wordList = ['apple', 'sasquatch', 'fart', 'a lot']; //array to hold random words
+  var wordList = ['apple', 'sasquatch', 'trailer park', 'mustard tiger', 'cheeseburger', 'walrus']; //array to hold random words
   var randWord = ""; //variable to store random word
   var letterCorrect = 0; //a variable to track when the user gets all letters
   var winCount = 0;//a variable to store the value for the total letters that must be guessed
